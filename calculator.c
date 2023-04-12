@@ -6,10 +6,14 @@
 
 int main(void)
 {
-	int x = 2
-	int y = 5
+	int x
+	int y
 
 	int z = y + x
+	int a = y - x
+	int b = y * x
+	int c = y / x
 
-	printf("%d", z);
+	scanf("%d", x, y);
+	printf("%d", z)
 }
