@@ -1,0 +1,114 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+//function to shuffle the card
+void shuffle(int deck[], int n)
+{
+    int i, j, temp;
+    srand(time(NULL));
+    for (i = n - 1; i > 0; i--)
+    {
+        j = rand() % (i + 1);
+        temp = deck[i];
+        deck[i] = deck[j];
+        deck[j] = temp;
+    }
+}
+
+//function to deal the cards to the players
+void deal_cards(int deck[], int n, int num_players, int cards_per_player, int players_cards[][cards_per_player])
+{
+    int i, j, k;
+    k = 0;
+    for (i = 0; i < num_players; i++)
+    {
+        for (j = 0; j < cards_per_player; j++)
+        {
+            players_cards[i][j] = deck[k++];
+        }
+    }
+}
+
+//function to print the cards in a player's hand
+void print_hand(int cards[], int n)
+{
+    int i;
+    printf("\nYour hand: ");
+    for (i = 0; i < n; i++)
+    {
+        printf("%d ", cards[i]);
+    }
+    printf("\n");
+}
+
+//function to check if a card can be played
+int can_play(int card, int current_card, int current_suit)
+{
+    int suit = card / 13;
+    int value = card % 13;
+    int current_value = current_card % 13;
+    if (suit == 4)
+    {
+        return 1; //Whot card can always be played
+    }
+    else if (suit == current_suit || value == current_value)
+    {
+        return 1; //Card matches either suit or value of current card
+    }
+    else
+    {
+        return 0; //Card cannot be played
+    }
+}
+
+//function to play a card
+int play_card(int cards[], int n, int current_card, int current_suit)
+{
+    int i, card;
+    while (1)
+    {
+        printf("Enter the card you want to play: ");
+        scanf("%d", &card);
+        if (can_play(card, current_card, current_suit))
+        {
+            for (i = 0; i < n; i++)
+            {
+                if (cards[i] == card)
+                {
+                    cards[i] = -1; //mark the card as played
+                    return card; //return the played card
+                }
+            }
+        }
+        printf("You cannot play that card. Please try again.\n");
+    }
+}
+
+//function to check if a player has won
+int has_won(int cards[], int n)
+{
+    int i;
+    for (i = 0; i < n; i++)
+    {
+        if (cards[i] != -1)
+        {
+            return 0; //player still has cards, game continues
+        }
+    }
+    return 1; //player has played all cards, player wins
+}
+
+//main function
+int main()
+{
+    int deck[54], i, j, k, num_players, cards_per_player, players_cards[10][10], current_card, current_suit, played_card, player_turn, player_bets[10];
+    printf("Enter the number of players (2 to 10): ");
+    scanf("%d", &num_players);
+    printf("Enter the number of cards per player (3 to 10): ");
+    scanf("%d", &cards_per_player
+
+
+
+
+
